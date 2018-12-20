@@ -41,11 +41,9 @@ public class Controller {
         bottomListView = lv1;
         cntxt = context;
 
-
+        model = new Model(cntxt);
 
         arrayAdapter = (ArrayAdapter<String>)lv1.getAdapter();
-
-
 
         currentQuestion = 0;
         totalQuestions = 5;
@@ -99,23 +97,43 @@ public class Controller {
         // Update the list view with the text from the bottom text field
         //sideListView.getItems().add(new Label(question.getText()));
         //sideListView.getItems().add(new Label(bottomTextField.getText()));
+        arrayAdapter.add(bottomTextField.getText().toString());
         // Clear the bottom text field because it has been used.
         bottomTextField.setText("");
 
         // Go to next question
-        currentQuestion = currentQuestion + 1;
+        if (currentQuestion == 5) {
+            currentQuestion = 0;
+        }
+
+        else {
+            currentQuestion = currentQuestion + 1;
+        }
+
         question.setText(questions[currentQuestion]);
         questionList.setText("Question " + currentQuestion + " of " + totalQuestions);
     }
 
     public void backTextReady() {
-        currentQuestion = currentQuestion - 1;
+        if (currentQuestion == 0) {
+            currentQuestion = 5;
+        }
+
+        else {
+            currentQuestion = currentQuestion - 1;
+        }
         question.setText(questions[currentQuestion]);
         questionList.setText("Question " + currentQuestion + " of " + totalQuestions);
     }
 
     public void nextTextReady() {
-        currentQuestion = currentQuestion + 1;
+        if (currentQuestion == 5) {
+            currentQuestion = 0;
+        }
+
+        else {
+            currentQuestion = currentQuestion + 1;
+        }
         question.setText(questions[currentQuestion]);
         questionList.setText("Question " + currentQuestion + " of " + totalQuestions);
     }
